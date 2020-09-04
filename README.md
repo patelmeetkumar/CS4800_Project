@@ -2,10 +2,10 @@
 CPP CS 4800.02 F20, Software Engineering Semester Project  
   
 Project Roles & Members:  
-Project Manager: Meetkumar Patel / Neeyati Ajmera  
+Project Manager: Meetkumar Patel
 Software Developer: David Lascelles  
-Software Developer: Neeyati Ajmera / Meetkumar Patel  
+Software Developer: Neeyati Ajmera
 Quality Assurance: Christian Batach  
 Business Analyst: Jaskaranpreet Sidhu  
   
-Project details coming soon!  
+Project: RESTFUL Web Service + Web App  

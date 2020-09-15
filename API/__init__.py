@@ -1,3 +1,4 @@
+import json
 import os
 import markdown
 
@@ -29,3 +30,14 @@ def index():
 # def get():
 #     """GET request"""
 
+def web_scraper(url):
+    """
+    Scrapes a webpage for necessary components for detection services
+    :param url: URL for webpage to be scraped
+    :return: JSON of components that have been scraped
+    """
+    json_deliverable = {}
+
+    # CODE GOES HERE
+
+    return json.dumps(json_deliverable)

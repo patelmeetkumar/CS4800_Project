@@ -31,6 +31,9 @@ class Interface:
 
     @staticmethod
     def invalid_path(method):
+        """
+        Redirect to invalid_url.html file if url path is /
+        """
         if method == "GET":
             return render_template('invalid_url.html')
 
@@ -47,9 +50,12 @@ class Interface:
         if method == 'POST':
             # Get URL from POST request form
             url = form['url']
-            print(url)
             # Get HTML from URL
-            html = requests.get(url).content.decode().strip()
+            try:
+                html = requests.get(url).content.decode().strip()
+            except:
+                return render_template('invalid_url.html')
+
             # Parse webpage with web scraper
             page_data = WebScraper(html).scrape()
             # Construct dictionary containing URL and page_data from web scraping

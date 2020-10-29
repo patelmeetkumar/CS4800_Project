@@ -28,6 +28,11 @@ class Interface:
                 # Convert to HTML
                 return markdown.markdown(content, extensions=['tables'])
 
+    @staticmethod
+    def invalid_path(method):
+        if method == "GET":
+            return render_template('invalid_url.html')
+
     def webapp(self, method, form):
         """
         Web App interface, handles GET and POST requests
@@ -54,7 +59,7 @@ class Interface:
             }
             print(attribute_dict)
             # Call detection service with json object converted from dictionary
-            authenticity_score = self.authenticity_detector(json.dumps(attribute_dict))
+            authenticity_score = self.__authenticity_detector(json.dumps(attribute_dict))
             # Render result_page with authenticity score from detection service
             return render_template('result_page.html', score=authenticity_score)
 
@@ -86,12 +91,12 @@ class Interface:
                 'page_data': page_data
             }
             # Call detection service with json object converted from dictionary
-            authenticity_score = self.authenticity_detector(json.dumps(attribute_dict))
+            authenticity_score = self.__authenticity_detector(json.dumps(attribute_dict))
             # Render result_page with authenticity score from detection service
             return render_template('result_page.html', score=authenticity_score)
 
     @staticmethod
-    def authenticity_detector(json_deliverable):
+    def __authenticity_detector(json_deliverable):
         """
         Sends json object containing data to be screened in authenticity detector
         :param json_deliverable: json object
@@ -319,6 +324,10 @@ def dev_guide():
     """HTML documentation about the API at the '/dev' url path"""
     return Interface().dev_guide(request.method)
 
+@app.route('/invalid_url', methods=['GET'])
+def invalid_path():
+    """Handles redirect to invalid url html"""
+    return Interface().invalid_path(request.method)
 
 @app.route('/', methods=['GET', 'POST'])
 def webapp():

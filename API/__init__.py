@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import random
 
 import markdown
 import requests
@@ -61,7 +62,7 @@ class Interface:
             # Call detection service with json object converted from dictionary
             authenticity_score = self.__authenticity_detector(json.dumps(attribute_dict))
             # Render result_page with authenticity score from detection service
-            return render_template('result_page.html', score=authenticity_score)
+            return render_template('result_page.html', score=authenticity_score[0], test=authenticity_score[1])
 
     def native_app(self, method, form):
         """
@@ -104,9 +105,10 @@ class Interface:
         """
 
         # TODO REPLACE PLACEHOLDER CODE
-        result = json.loads(json_deliverable)
-        pprint.pprint(result)
-        return result
+        json_obj = json.loads(json_deliverable)
+        pprint.pprint(json_obj)
+        result = random.uniform(0, 1).__round__(4) # detect_authenticity(json_obj)
+        return result, json_obj
 
 
 class WebScraper:
@@ -324,10 +326,12 @@ def dev_guide():
     """HTML documentation about the API at the '/dev' url path"""
     return Interface().dev_guide(request.method)
 
+
 @app.route('/invalid_url', methods=['GET'])
 def invalid_path():
     """Handles redirect to invalid url html"""
     return Interface().invalid_path(request.method)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def webapp():

@@ -7,7 +7,7 @@ import markdown
 import requests
 import pprint
 
-# Import the framework
+# Import the frameworks
 from flask import Flask
 from flask import render_template, request, url_for, redirect
 from flask_restful import Api

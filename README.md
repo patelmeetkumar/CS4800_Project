@@ -1,4 +1,4 @@
-<a href="https://naws.herokuapp.com/" style="font-size: 48px">Return to News Authenticity Web Service</a>  
+<a href="https://naws.herokuapp.com/" style="font-size: 44px">Return to News Authenticity Web Service</a>  
 ### CPP CS 4800.02 F20, Software Engineering Semester Project
   
 ## Project Roles & Members:

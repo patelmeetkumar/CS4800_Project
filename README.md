@@ -1,5 +1,5 @@
 # CS4800 Project  
-<a href="https://news-authenticity-service.herokuapp.com/" style="font-size: 100px; text-decoration: none">Return to homepage</a>  
+<a href="https://news-authenticity-service.herokuapp.com/" style="font-size: 50px">Return to homepage</a>  
 ### CPP CS 4800.02 F20, Software Engineering Semester Project
   
 ## Project Roles & Members:

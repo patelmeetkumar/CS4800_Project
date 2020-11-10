@@ -1,0 +1,6 @@
+Flask==1.1.2
+Flask-RESTful==0.3.8
+Markdown==3.3.3
+requests
+Werkzeug==1.0.1
+gunicorn==20.0.4

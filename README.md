@@ -1,4 +1,5 @@
 # CS4800 Project  
+#<a href="https://news-authenticity-service.herokuapp.com/">Return to homepage</a>  
 ### CPP CS 4800.02 F20, Software Engineering Semester Project
   
 ## Project Roles & Members:

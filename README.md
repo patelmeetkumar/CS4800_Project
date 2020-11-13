@@ -1,4 +1,4 @@
-<a href="https://naws.herokuapp.com/" style="font-size: 42px">Return to News Authenticity Web Service</a>  
+# CS4800 Project  
 ### CPP CS 4800.02 F20, Software Engineering Semester Project
   
 ## Project Roles & Members:
@@ -14,13 +14,15 @@
 - Web App client for the web service 
 
 
-## Web App/Native App Interface
-### API Input for Web/App Interface:
-This API accepts POST requests as input. Use the following input `name=` parameters for valid input.
+## Native App Interface
+### API Input for App Interface:
+This API accepts POST requests as input. 
+Send a POST request containing a JSON to https://naws.herokuapp.com/api to use the API. 
+Use the following json keys for valid input.
 
-**Minimum requirement is a `url` as a *String*.**
+**Minimum requirement is the `url` key containing a *String*.**
 
-Native Apps can add the following attributes:
+Apps can add the following attributes from social media posts:
 
 |Attribute         |Type        |Description                                      |Specification/Example                |
 |------------------|------------|-------------------------------------------------|-------------------------------------|
@@ -66,12 +68,13 @@ Access the other json keys using the following structure:
 |                |`publish_date_time`|*ISO String*     |Publish date and time of the article        |Use ISO format: `YYYY-MM-DDThh:mmTZD`
 |                |`body`             |*String*         |Contents of the article                     |Yesterday afternoon at a global summit, world leaders...
 |                |`citation_urls`    |*List of Strings*|List of urls that are linked in the article |https://www.wikipedia.org, https://www.cnn.com
+|                |`html`             |*String*         |HTML Dump of a the webpage                  |<!doctype html><html lang="en"><head>...
+      
         
 ### API Response from Authenticity Detection Services:
-Return a `float` confidence value between
-
-`0` for **Fake** to `1` for **Real**
+Return a `float` confidence value in a json object with the `score=` key. Score should be between `0` for
+ **Fake** to `1` for **Real**
 
 For decision-tree authenticity checking services, you may use intermediate values like 0.5 to indicate uncertainty.
 
-## To request changes to or clarification about this API, please contact the Project Manager Meetkumar Patel (@MarkPatel) on Discord
+## To request changes to or clarification about this API, please contact the Project Manager Meetkumar Patel on Discord

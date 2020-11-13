@@ -7,7 +7,7 @@ import markdown
 import requests
 import pprint
 
-# Import the frameworks
+# Import the framework
 from flask import Flask
 from flask import render_template, request, url_for, redirect
 from flask_restful import Api
@@ -21,14 +21,13 @@ class Interface:
 
         # Render dev readme when receiving GET request
         if method == "GET":
-            return redirect("https://patelmeetkumar.github.io/CS4800_Project/")
-            # # Open the README file
-            # with open('README.md', 'r') as markdown_file:
-            #     # Read the content of the file
-            #     content = markdown_file.read()
-            #
-            #     # Convert to HTML
-            #     return markdown.markdown(content, extensions=['tables'])
+            # Open the README file
+            with open(os.path.dirname(app.root_path) + '/README.md', 'r') as markdown_file:
+                # Read the content of the file
+                content = markdown_file.read()
+
+                # Convert to HTML
+                return markdown.markdown(content, extensions=['tables'])
 
     @staticmethod
     def invalid_path(method):
@@ -45,7 +44,7 @@ class Interface:
         """
         # Render submit_page when receiving GET request
         if method == 'GET':
-            return render_template("submit_page.html")
+            return render_template('submit_page.html')
 
         # Handle POST request
         if method == 'POST':
@@ -55,7 +54,7 @@ class Interface:
             try:
                 html = requests.get(url).content.decode().strip()
             except:
-                return render_template('invalid_url.html')
+                return redirect("/invalid_url")
 
             # Parse webpage with web scraper
             page_data = WebScraper(html).scrape()
@@ -65,11 +64,10 @@ class Interface:
                 'post_data': None,
                 'page_data': page_data
             }
-            print(attribute_dict)
             # Call detection service with json object converted from dictionary
-            authenticity_score = self.__authenticity_detector(json.dumps(attribute_dict))
+            authenticity_score = self.__authenticity_detector(json.dumps(attribute_dict)).json()
             # Render result_page with authenticity score from detection service
-            return render_template('result_page.html', score=authenticity_score[0], test=authenticity_score[1])
+            return render_template('result_page.html', score=authenticity_score["score"], test=authenticity_score["test"])
 
     def native_app(self, method, form):
         """
@@ -81,8 +79,12 @@ class Interface:
         if method == 'POST':
             # Get URL from POST request form
             url = form['url']
-            # Get HTML from URL
-            html = requests.get(url).content.decode().strip()
+            try:
+                html = requests.get(url).content.decode().strip()
+            except:
+                return #TODO Handle url error case
+
+
             # Parse webpage with web scraper
             page_data = WebScraper(html).scrape()
             # Construct dictionary containing URL, post_data from POST request, and page_data from web scraping
@@ -99,9 +101,10 @@ class Interface:
                 'page_data': page_data
             }
             # Call detection service with json object converted from dictionary
-            authenticity_score = self.__authenticity_detector(json.dumps(attribute_dict))
+            authenticity_score = self.__authenticity_detector(json.dumps(attribute_dict)).json()
+
             # Render result_page with authenticity score from detection service
-            return render_template('result_page.html', score=authenticity_score)
+            return str(authenticity_score["score"])
 
     @staticmethod
     def __authenticity_detector(json_deliverable):
@@ -110,12 +113,26 @@ class Interface:
         :param json_deliverable: json object
         :return: authenticity float score
         """
+        # TODO Replace heroku url with real authenticity detection service endpoint
+        return requests.post("https://naws.herokuapp.com/test", json=json_deliverable)
 
-        # TODO REPLACE PLACEHOLDER CODE
-        json_obj = json.loads(json_deliverable)
-        pprint.pprint(json_obj)
-        result = random.uniform(0, 1).__round__(4) # detect_authenticity(json_obj)
-        return result, json_obj
+    ## FOR TESTING ONLY. NOT A PART OF WEB APP. SIMULATES DETECTION SERVICE
+    @staticmethod
+    def test_auth_detector(method, form):
+        """
+
+        """
+        if method == "POST":
+            pprint.pprint(form)
+
+            # Fake a result for testing
+            result_string = f"{random.uniform(0, 1): .2f}"
+
+            result = float(result_string)
+
+            test_response = {"score": result, "test": form}
+            return json.dumps(test_response)
+        return None
 
 
 class WebScraper:
@@ -143,7 +160,6 @@ class WebScraper:
             end = self.__index_of_section_end(self.html, "{", "}", start)
             page_json = json.loads(self.html[start:end])
 
-            pprint.pprint(page_json)
             # Parse page's json data for information and add it to the dict
             self.page_data_dict["title"] = self.__find_title(page_json)
             self.page_data_dict["subtitle"] = self.__find_subtitle(page_json)
@@ -307,7 +323,6 @@ class WebScraper:
 
     def __find_links(self, text):
         new_text = ""
-        print(text)
         start = 0
         end = 0
         while start != -1:
@@ -316,7 +331,6 @@ class WebScraper:
             end = self.__index_of_section_end(text, "<", ">", start)
             text = text[end:]
 
-        print(text[start:end])
         return None
 
 
@@ -326,7 +340,6 @@ app = Flask(__name__)
 # Create the API
 api = Api(app)
 app.static_folder = 'static'
-# app.run(threaded=True)
 
 
 @app.route('/dev', methods=['GET'])
@@ -358,3 +371,10 @@ def native_app():
     """
     return Interface().native_app(request.method, request.form)
 
+## FOR TESTING ONLY. NOT A PART OF WEB APP. SIMULATES DETECTION SERVICE CALL
+@app.route('/test', methods=['POST'])
+def test_auth_detector():
+    """
+    Test url path acting as an authenticity service.
+    """
+    return Interface().test_auth_detector(request.method, request.get_json())

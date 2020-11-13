@@ -21,13 +21,14 @@ class Interface:
 
         # Render dev readme when receiving GET request
         if method == "GET":
-            # Open the README file
-            with open(os.path.dirname(app.root_path) + '/README.md', 'r') as markdown_file:
-                # Read the content of the file
-                content = markdown_file.read()
-
-                # Convert to HTML
-                return markdown.markdown(content, extensions=['tables'])
+            return redirect("https://patelmeetkumar.github.io/CS4800_Project/ ")
+            # # Open the README file
+            # with open(os.path.dirname(app.root_path) + '/README.md', 'r') as markdown_file:
+            #     # Read the content of the file
+            #     content = markdown_file.read()
+            #
+            #     # Convert to HTML
+            #     return markdown.markdown(content, extensions=['tables'])
 
     @staticmethod
     def invalid_path(method):

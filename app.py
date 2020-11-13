@@ -115,6 +115,7 @@ class Interface:
         :return: authenticity float score
         """
         # TODO Replace heroku url with real authenticity detection service endpoint
+        #return requests.post("http://127.0.0.1:5000/test", json=json_deliverable)
         return requests.post("https://naws.herokuapp.com/test", json=json_deliverable)
 
     ## FOR TESTING ONLY. NOT A PART OF WEB APP. SIMULATES DETECTION SERVICE
@@ -127,9 +128,10 @@ class Interface:
             pprint.pprint(form)
 
             # Fake a result for testing
-            result_string = f"{random.uniform(0, 1): .2f}"
-
+            result_string = f"{random.uniform(0, 1): .4f}"
+            print(result_string)
             result = float(result_string)
+            print(result)
 
             test_response = {"score": result, "test": form}
             return json.dumps(test_response)

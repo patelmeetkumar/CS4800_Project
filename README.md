@@ -17,7 +17,7 @@
 ## Native App Interface
 ### API Input for App Interface:
 This API accepts POST requests as input. 
-Send a POST request containing a JSON to https://naws.herokuapp.com/api to use the API. 
+Send a POST request containing a JSON to ```https://naws.herokuapp.com/api``` to use the API. 
 Use the following json keys for valid input.
 
 **Minimum requirement is the `url` key containing a *String*.**

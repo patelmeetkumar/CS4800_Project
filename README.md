@@ -57,8 +57,7 @@ In the `POST` response, this API returns a four decimal `float` confidence value
 
 `0` for **Fake** to `1` for **Real**, for example `0.0428`
 
-**Implementation Suggestions:**
-
+**Implementation Suggestions:**  
 The Web/App client should use the confidence value to arbitrarily determine authenticity of submitted content.
 For example, the client can decide that scores over 0.7 are Real, below 0.3 are Fake, and have an "Uncertain"
 state in between, or alternatively present the user with a 0% to 100% score.

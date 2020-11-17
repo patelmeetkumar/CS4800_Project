@@ -120,8 +120,12 @@ Access the other JSON keys using the following structure:
 `}`  
         
 ### API Response from Authenticity Detection Services:
-In your `POST` response, return a `float` confidence value in a JSON object with the `score=` key. Score should be between `0` for
+In your `POST` response, return a `float` confidence value in a JSON object with the `score:` key.  
+Score should be between `0` for
  **Fake** to `1` for **Real** 
+ 
+Your JSON response should be formatted as:  
+`{score: 0.0428}`
 
 For decision-tree authenticity checking services, you may use intermediate values like 0.5 to indicate uncertainty.
 

@@ -9,7 +9,7 @@ import pprint
 
 # Import the framework
 from flask import Flask
-from flask import render_template, request, url_for, redirect
+from flask import render_template, request, redirect, Response
 from flask_restful import Api
 
 
@@ -83,7 +83,7 @@ class Interface:
             try:
                 html = requests.get(url).content.decode().strip()
             except:
-                return #TODO Handle url error case
+                return Response("Invalid Request: Must contain URL", status=400)
 
 
             # Parse webpage with web scraper
@@ -94,6 +94,7 @@ class Interface:
                 'post_data': {
                     'account_name': form.get('post_author'),
                     'user_name': form.get('user_name'),
+                    'post_body': form.get('post_body'),
                     'post_date': form.get('post_date'),
                     'post_date_time': form.get('post_date_time'),
                     'account_age': form.get('account_age'),
@@ -101,6 +102,7 @@ class Interface:
                 },
                 'page_data': page_data
             }
+
             # Call detection service with json object converted from dictionary
             authenticity_score = self.__authenticity_detector(json.dumps(attribute_dict)).json()
 
@@ -373,6 +375,7 @@ def native_app():
     :return: HTML template of result page with score
     """
     return Interface().native_app(request.method, request.form)
+
 
 ## FOR TESTING ONLY. NOT A PART OF WEB APP. SIMULATES DETECTION SERVICE CALL
 @app.route('/test', methods=['POST'])

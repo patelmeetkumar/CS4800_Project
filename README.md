@@ -36,7 +36,6 @@ Apps can optionally add the following attributes from social media posts to incr
 |`account_name`    |*String*    |User's actual name                               |John Smith                           |
 |`user_name`       |*String*    |User's handle or user name                       |@john_smith                          |
 |`post_body`       |*String*    |The post body content                            |Wow, check out this news article!    |
-|`post_date`       |*ISO String*|Date of post                                     |Use ISO format: `YYYY-MM-DD`         |
 |`post_date_time`  |*ISO String*|Date and time of post                            |Use ISO format: `YYYY-MM-DDThh:mmTZD`|
 |`account_age`     |*Float*     |Age of account in years                          |`4.3`                                |
 |`profile_picture` |*Boolean*   |True if user has non-default profile picture     |`True`                               |
@@ -44,8 +43,8 @@ Apps can optionally add the following attributes from social media posts to incr
 **Example JSON package**  
 `{`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `url:https://www.example.com/news_article/`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `account_name:@test_account`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `user_name:Sally Smith`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `account_name:John Smith`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `user_name:@John_Smith`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `post_body:WOW! Look at this article!`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `post_date_time:2020-10-06T011:24PST`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `account_age:4.3`  
@@ -76,11 +75,11 @@ Access the other JSON keys using the following structure:
 
 |Parent Attribute|Child Attribute    |Type             |Description                                 |Specification/Example|
 |----------------|-------------------|-----------------|--------------------------------------------|---------------------|
-|`url`           |                   |*String*         |URL of article                              |https://www.google.com
+|`url`           |                   |*String*         |URL of article                              |https://www.example.com/news_article/
 |`post_data`     |          
 |                |`account_name`     |*String*         |User's actual name                          |John Smith
 |                |`user_name`        |*String*         |User's handle or user name                  |@john_smith
-|                |`post_date`        |*ISO String*     |Date of post                                |Use ISO format: `YYYY-MM-DD`
+|                |`post_body`        |*String*         |The post body content                       |Wow, check out this article!
 |                |`post_date_time`   |*ISO String*     |Date and time of post                       |Use ISO format: `YYYY-MM-DDThh:mmTZD`
 |                |`account_age`      |*Float*          |Age of account in years                     |`4.3`
 |                |`profile_picture`  |*Boolean*        |True if user has non-default profile picture|`True`
@@ -99,8 +98,8 @@ Access the other JSON keys using the following structure:
 `{`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `url:https://www.example.com/news_article/`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `post_data: {`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `account_name:@test_account`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `user_name:Sally Smith`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `account_name:John Smith`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `user_name:@John_Smith`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `post_body:WOW! Look at this article!`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `post_date_time:2020-10-06T011:24PST`  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `account_age:4.3`  
